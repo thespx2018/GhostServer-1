@@ -27,4 +27,10 @@ Player.prototype.reset = function(){
     this.changeStatus('ready');
 };
 
+Player.prototype.die = function(){
+    if(this.status == 'alive'){
+        this.changeStatus('dead');
+    }
+};
+
 module.exports = Player;

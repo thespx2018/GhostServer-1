@@ -73,4 +73,9 @@ Game.prototype.start = function(){
     return true;
 };
 
+Game.prototype.playerDie = function(player_id){
+    var player = this.getPlayer(player_id);
+    player.die();
+};
+
 module.exports = new Game(HUMAN_NUM,GHOST_NUM,BATTERY_NUM);

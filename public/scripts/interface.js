@@ -5,9 +5,9 @@ $(document).ready(function(){
         $.get("/admin/start",function(data,status){
             if(status == "success"){
                 if(data == "OK"){
-                    showMessage("Successfully started");
+                    showMessage("开始游戏！");
                 }else{
-                    showMessage("Cannot start");
+                    showMessage("错误：游戏不能开始");
                 }
             }
         });
@@ -16,13 +16,14 @@ $(document).ready(function(){
         $.get("/admin/reset",function(data,status){
             if(status == "success"){
                 if(data == "OK"){
-                    showMessage("Successfully reset");
+                    showMessage("重置成功");
                 }else{
-                    showMessage("Cannot reset");
+                    showMessage("错误：无法重置");
                 }
             }
         });
     });
+
 });
 
 function update(){
@@ -57,6 +58,15 @@ function showPlayerStat(player){
     new_row.append($("<td></td>").text(role));
     var status = player.status;
     new_row.append($("<td></td>").text(status));
+    new_button = $("<button class='pure-button dead-switch'>弄死</button>");
+    new_button.click(function(){
+        var player_id = $(this).parent().prevAll().last().text();
+        $.get('/admin/die?player_id='+player_id,function(data,status){
+            if(status == 'success'){
+            }
+        });
+    });
+    new_row.append($("<td></td>").append(new_button));
     new_tbody.append(new_row);
     table.append(new_tbody);
 };

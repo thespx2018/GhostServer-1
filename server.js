@@ -62,6 +62,12 @@ function InitServer() {
             res.send("FAIL");
     });
 
+    app.get('/admin/die',function(req,res){
+        var player_id = req.query.player_id;
+        logic.playerDie(player_id);
+        res.send("OK");
+    });
+
     app.listen(port, function() {
         console.log('Web Server is running at ' + port);
     });

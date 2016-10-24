@@ -58,4 +58,8 @@ logic.prototype.start = function(){
         return false;
 };
 
+logic.prototype.playerDie = function(player_id){
+    game.playerDie(player_id);
+};
+
 module.exports = new logic();
