@@ -1,7 +1,6 @@
 var ALL_STATUS = ['ready','alive','dead','reviving'];
 
 function Player(id,role){
-    this.init(id,role);
 }
 
 Player.prototype.init = function(id,role){
@@ -18,6 +17,14 @@ Player.prototype.changeStatus = function(status){
     } else {
         this.status = status;
     }
+};
+
+Player.prototype.startGame = function(){
+    this.changeStatus('alive');
+};
+
+Player.prototype.reset = function(){
+    this.changeStatus('ready');
 };
 
 module.exports = Player;

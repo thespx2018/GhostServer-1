@@ -1,0 +1,23 @@
+.banner {
+    font-size: 3em;
+    margin: 10px 0px;
+}
+
+.button-container{
+    width:20%;
+    display: inline-block;
+}
+
+
+body {
+    margin:50px auto;
+    width:800px;
+}
+
+html{
+    font-weight: 200;
+}
+
+hr{
+    margin:30px 0px;
+}
