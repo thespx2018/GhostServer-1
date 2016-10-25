@@ -3,12 +3,14 @@ var logic = require('./logic');
 var path = require('path');
 var app = express();
 var logic = require('./logic');
+var logger = require('morgan');
 
 var port = 3000;
 
 function InitServer() {
     app.set('views', path.join(__dirname, 'views'));
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(logger('dev'));
 
     app.get('/', function(req,res){
         res.sendFile(path.join(__dirname, 'public/interface.html'));
@@ -30,6 +32,8 @@ function InitServer() {
     });
 
     app.get('/client/battery', function(req, res){
+        var battery_id = req.query.battery_id;
+        console.log('got battery:'+battery_id);
         res.send('OK');
     });
 
