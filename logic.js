@@ -8,8 +8,8 @@ logic.prototype.getPlayerObj = function(player_id){
     return game.getPlayer(player_id);
 };
 
-logic.prototype.validateBattery = function(battery_str){
-
+logic.prototype.useBattery = function(battery_id){
+    return game.useBattery(battery_id);
 };
 
 logic.prototype.validateReset = function(){
@@ -36,7 +36,7 @@ logic.prototype.getGameStatus = function(){
     return game.getStatus();
 };
 
-logic.prototype.getPlayerStatistics = function(){
+logic.prototype.getPlayerStat = function(){
     var players = game.getPlayers();
     var ret = [];
     for (var ind in players){
@@ -45,6 +45,16 @@ logic.prototype.getPlayerStatistics = function(){
     }
     return ret;
 };
+
+logic.prototype.getBatteryStat = function(){
+    var batteries = game.getBatteries();
+    var ret = [];
+    for (var ind in batteries){
+        var battery = batteries[ind];
+        ret.push({'id':battery.id,'used':battery.used});
+    }
+    return ret;
+}
 
 logic.prototype.reset = function(){
     return game.reset();

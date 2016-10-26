@@ -40,8 +40,16 @@ Game.prototype.getPlayer = function(id){
     return _.find(this.players,function(ele){return ele.id == id});
 };
 
+Game.prototype.getBattery = function(id){
+    return _.find(this.batteries,function(ele){return ele.id == id});
+};
+
 Game.prototype.getPlayers = function(){
     return this.players;
+};
+
+Game.prototype.getBatteries = function(){
+    return this.batteries;
 };
 
 Game.prototype.getStatus = function(){return this.status};
@@ -60,6 +68,10 @@ Game.prototype.reset = function(){
         var player = this.players[ind];
         player.reset();
     }
+    for (var ind in this.batteries){
+        var battery = this.batteries[ind];
+        battery.reset();
+    }
     return true;
 };
 
@@ -70,12 +82,18 @@ Game.prototype.start = function(){
             return false;
         player.startGame();
     }
+    this.changeStatus('playing');
     return true;
 };
 
 Game.prototype.playerDie = function(player_id){
     var player = this.getPlayer(player_id);
     player.die();
+};
+
+Game.prototype.useBattery = function(battery_id){
+    var battery = this.getBattery(battery_id);
+    return battery.use();
 };
 
 module.exports = new Game(HUMAN_NUM,GHOST_NUM,BATTERY_NUM);

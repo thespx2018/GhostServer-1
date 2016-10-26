@@ -11,6 +11,7 @@
     <body>
     <div class="banner"> 幽灵迷城后台控制 </div>
         <hr>
+            <div></div>
             <table class="pure-table" id="player-statistics-table">
                 <thead>
                     <tr>
@@ -29,7 +30,8 @@
                     </tr>
             </table>
         <hr>
-            <div class="button-canvas">
+            <div style="font-size: 2em;display: inline-block;">游戏状态：</div><div id="game-indicator">请稍后</div>
+            <div class="button-canvas" style="margin:20px 0px;">
                 <button class="pure-button pure-button-primary" id="start-button">开始游戏</button>
                 <button class="pure-button button-error" id="reset-button">重置</button>
                 <p id="message-area" style="display: none;" >hello</p>

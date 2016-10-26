@@ -41,11 +41,19 @@ function tableClear(){
 };
 
 function processReply(data){
-    var players = data;
+    var players = data.player;
+    var game_status = data.game;
+    var batteries = data.battery;
     for (var i in players){
         var player = players[i];
         showPlayerStat(player);
     }
+    showGameStatus(game_status);
+};
+
+function showGameStatus(game_status){
+    var indicator = $("#game-indicator");
+    indicator.text(game_status);
 };
 
 function showPlayerStat(player){

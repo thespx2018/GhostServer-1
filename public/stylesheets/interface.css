@@ -3,6 +3,11 @@
     margin: 10px 0px;
 }
 
+#game-indicator{
+    font-size: 2em;
+    display: inline-block;
+}
+
 .button-container{
     width:20%;
     display: inline-block;

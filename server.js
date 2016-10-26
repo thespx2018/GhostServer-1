@@ -19,7 +19,10 @@ function InitServer() {
     app.get('/client/status', function(req, res) {
         var player_id = req.query.player_id;
         var player = logic.getPlayerObj(player_id);
-        res.send(player.getStatus);
+        if(player)
+            res.send(player.getStatus());
+        else
+            res.send("Error");
     });
 
     app.get('/client/reset', function(req, res){
@@ -33,8 +36,12 @@ function InitServer() {
 
     app.get('/client/battery', function(req, res){
         var battery_id = req.query.battery_id;
-        console.log('got battery:'+battery_id);
-        res.send('OK');
+        var is_used = logic.useBattery(battery_id);
+        if (is_used){
+            res.send('OK');
+        }else{
+            res.send('FAIL');
+        }
     });
 
     app.get('/client/revive', function(req, res){
@@ -45,9 +52,11 @@ function InitServer() {
     });
 
     app.get('/admin', function(req, res){
-        var playerStatistics = logic.getPlayerStatistics();
+        var playerStat = logic.getPlayerStat();
+        var gameStatus = logic.getGameStatus();
+        var batteryStat = logic.getBatteryStat();
         res.setHeader('Content-Type','application/json');
-        res.send(JSON.stringify(playerStatistics));
+        res.send(JSON.stringify({'player':playerStat,'game':gameStatus,'battery':batteryStat}));
     });
 
     app.get('/admin/reset',function(req,res){
