@@ -96,4 +96,21 @@ Game.prototype.useBattery = function(battery_id){
     return battery.use();
 };
 
+Game.prototype.revive = function(revive_player_id){
+    var player = this.getPlayer(revive_player_id);
+    //check if this player is revivable
+    if (!player){
+        throw Error('Cannot revive player '+player_revived+'. No such player');
+    }
+    if (player.role != 'Human'){
+        throw Error('the selected player '+being_revived_player+' is not human');
+    }
+
+    //revive player for 1 second
+    player.increRevive(1);
+
+    //get how much time left for reviving
+    return player.getReviveCountLeft();
+};
+
 module.exports = new Game(HUMAN_NUM,GHOST_NUM,BATTERY_NUM);

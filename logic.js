@@ -12,24 +12,9 @@ logic.prototype.useBattery = function(battery_id){
     return game.useBattery(battery_id);
 };
 
-logic.prototype.validateReset = function(){
-    var game_status = game.getStatus();
-    if (game_status == 'ready'){
-        return true;
-    } else {
-        return false;
-    }
-};
-
-logic.prototype.revive = function(player_id, player_revived){
-    var being_revived_player = this.getPlayerObj(player_revived);
-    if (!being_revived_player){
-        throw Error('Cannot revive player '+player_revived+'. No such player');
-    }
-    if (being_revived_player.role != 'Human'){
-        throw Error('the selected player '+being_revived_player+' is not human');
-    }
-    being_revived_player.increRevive();
+logic.prototype.revive = function(player_revived){
+    var time_left = game.revive(player_revived);
+    return time_left;
 };
 
 logic.prototype.getGameStatus = function(){

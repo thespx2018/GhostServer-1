@@ -25,30 +25,21 @@ function InitServer() {
             res.send("Error");
     });
 
-    app.get('/client/reset', function(req, res){
-        var ret = logic.validateReset();
-        if (ret == true){
-            res.send('OK');
-        } else {
-            res.send('NO');
-        }
-    });
-
     app.get('/client/battery', function(req, res){
         var battery_id = req.query.battery_id;
-        var is_used = logic.useBattery(battery_id);
-        if (is_used){
+        // var is_used = logic.useBattery(battery_id);
+        // if (is_used){
             res.send('OK');
-        }else{
-            res.send('FAIL');
-        }
+        // }else{
+        //     res.send('FAIL');
+        // }
     });
 
     app.get('/client/revive', function(req, res){
         var player_id = req.query.player_id;
-        var player_revived = req.query.revived;
-        logic.revive(player_id,player_revived);
-        res.send('OK');
+        // var time_left = logic.revive(player_id);
+        res.setHeader('Content-Type','application/json');
+        res.send(JSON.stringify({'time_left':10}));
     });
 
     app.get('/admin', function(req, res){
