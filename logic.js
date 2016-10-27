@@ -9,7 +9,11 @@ logic.prototype.getPlayerObj = function(player_id){
 };
 
 logic.prototype.useBattery = function(battery_id){
-    return game.useBattery(battery_id);
+    try{
+        return game.useBattery(battery_id);
+    } catch(err){
+        return null;
+    }
 };
 
 logic.prototype.revive = function(player_revived){
@@ -36,7 +40,7 @@ logic.prototype.getBatteryStat = function(){
     var ret = [];
     for (var ind in batteries){
         var battery = batteries[ind];
-        ret.push({'id':battery.id,'used':battery.used});
+        ret.push({'id':battery.id,'available':battery.available});
     }
     return ret;
 }
@@ -53,8 +57,8 @@ logic.prototype.start = function(){
         return false;
 };
 
-logic.prototype.playerDie = function(player_id){
-    game.playerDie(player_id);
+logic.prototype.togglePlayerDead = function(player_id){
+    game.adminToggleDead(player_id);
 };
 
 module.exports = new logic();

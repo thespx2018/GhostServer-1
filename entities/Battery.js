@@ -1,21 +1,21 @@
 function Battery(id){
     this.id = id;
-    this.used = false;
+    this.available = true;
 }
 
 Battery.prototype.use = function(){
     var ret = null;
-    if (this.used == false){
+    if (this.available == true){
         ret = true;
     } else {
         ret = false;
     }
-    this.used = true;
+    this.available = false;
     return ret;
 };
 
 Battery.prototype.reset = function(){
-    this.used = false;
+    this.available = true;
 };
 
 

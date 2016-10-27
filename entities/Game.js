@@ -31,7 +31,7 @@ Game.prototype.init = function(human_num,ghost_num,battery_num){
         temp_id++;
     }
     // initialize batteries
-    for(var i=0;i<battery_num;i++){
+    for(var i=1;i<=battery_num;i++){
         this.batteries.push(new Battery(i));
     }
 };
@@ -86,29 +86,42 @@ Game.prototype.start = function(){
     return true;
 };
 
-Game.prototype.playerDie = function(player_id){
+Game.prototype.adminToggleDead = function(player_id){
     var player = this.getPlayer(player_id);
-    player.die();
-};
+    if (player.getStatus() == 'alive')
+        player.die();
+    else if (player.getStatus() == 'dead')
+        player.revive();
+}
 
 Game.prototype.useBattery = function(battery_id){
+    //if game has not started throw an error
+    if (this.status != 'playing'){
+        throw Error("Game has not started");
+    }
     var battery = this.getBattery(battery_id);
     return battery.use();
 };
 
 Game.prototype.revive = function(revive_player_id){
+    //if game has not started throw an error
+    if (this.status != 'playing'){
+        throw Error("Game has not started");
+    }
     var player = this.getPlayer(revive_player_id);
     //check if this player is revivable
     if (!player){
-        throw Error('Cannot revive player '+player_revived+'. No such player');
+        throw Error('Cannot revive player '+revive_player_id+'. No such player');
     }
-    if (player.role != 'Human'){
-        throw Error('the selected player '+being_revived_player+' is not human');
+    if (player.role != 'human'){
+        throw Error('the selected player '+revive_player_id+' is not human');
     }
-
-    //revive player for 1 second
-    player.increRevive(1);
-
+    if (player.getStatus()!='dead' && player.getStatus()!='reviving'){
+        return -1;
+    } else {
+        //revive player for 1 second
+        player.increRevive(1);
+    }
     //get how much time left for reviving
     return player.getReviveCountLeft();
 };

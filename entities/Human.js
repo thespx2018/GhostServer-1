@@ -13,17 +13,22 @@ function Human(id) {
 
 //revive player for 1 second
 Human.prototype.increRevive = function(second) {
-    this.changeStatus('reviving');
+    //only who in dead or reviving status can be revived
+    if(this.status != 'dead' && this.status != 'reviving')
+        return;
+    if(this.status == 'dead')
+        this.changeStatus('reviving');
+
     if (!this.revive_timer) {
         var self = this;
         this.revive_timer = setTimeout(function() {
             self.revive_progress++;
-            self.revive_timer = null;
-            if (revive_progress >= REVIVE_COUNT) {
-                this.changeStatus('alive');
+            if (self.revive_progress >= REVIVE_COUNT) {
+                self.revive();
             }
+            self.revive_timer = null;
         }, second*1000);
-    };
+    }
 };
 
 Human.prototype.getReviveCountLeft = function() {
@@ -34,6 +39,11 @@ Human.prototype.reset = function() {
     this.changeStatus('ready');
     this.revive_progress = 0;
 };
+
+Human.prototype.revive = function() {
+    this.changeStatus('alive');
+    this.revive_progress = 0;
+}
 
 // Human.prototype.restoreBattery = function(){
 //     this.battery = FULL_BATTERY;

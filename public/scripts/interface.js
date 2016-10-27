@@ -1,4 +1,10 @@
+var player_table
+var battery_table
+
 $(document).ready(function(){
+
+    player_table = $("#player-statistics-table tbody:first");
+    battery_table = $("#battery-statistics-table tbody:first");
     update();
     setInterval(function(){update()},1000);
     $("#start-button").click(function(){
@@ -34,11 +40,12 @@ function update(){
             processReply(data);
         } 
     });
-};
+}
 
 function tableClear(){
-    $("#player-statistics-table tbody").remove();
-};
+    player_table.empty();
+    battery_table.empty();
+}
 
 function processReply(data){
     var players = data.player;
@@ -48,17 +55,20 @@ function processReply(data){
         var player = players[i];
         showPlayerStat(player);
     }
+    for (var i in batteries){
+        var battery = batteries[i];
+        console.log(battery);
+        showBatteryStat(battery);
+    }
     showGameStatus(game_status);
-};
+}
 
 function showGameStatus(game_status){
     var indicator = $("#game-indicator");
     indicator.text(game_status);
-};
+}
 
 function showPlayerStat(player){
-    var table = $("#player-statistics-table");
-    var new_tbody = $("<tbody></tbody>");
     var new_row = $("<tr></tr>");
     var id = player.id;
     new_row.append($("<td></td>").text(id));
@@ -66,22 +76,30 @@ function showPlayerStat(player){
     new_row.append($("<td></td>").text(role));
     var status = player.status;
     new_row.append($("<td></td>").text(status));
-    new_button = $("<button class='pure-button dead-switch'>弄死</button>");
+    new_button = $("<button class='pure-button dead-switch'>弄死／弄活</button>");
     new_button.click(function(){
         var player_id = $(this).parent().prevAll().last().text();
-        $.get('/admin/die?player_id='+player_id,function(data,status){
+        $.get('/admin/toggleDead?player_id='+player_id,function(data,status){
             if(status == 'success'){
             }
         });
     });
     new_row.append($("<td></td>").append(new_button));
-    new_tbody.append(new_row);
-    table.append(new_tbody);
-};
+    player_table.append(new_row);
+}
+
+function showBatteryStat(battery){
+    var new_row = $("<tr></tr>");
+    var id = battery.id;
+    new_row.append($("<td></td>").text(id));
+    var available = battery.available;
+    new_row.append($("<td></td>").text(available));
+    battery_table.append(new_row);
+}
 
 function showMessage(message){
     $("#message-area").text(message);
     $("#message-area").fadeIn(1000,function(){
         setTimeout(function(){$("#message-area").fadeOut(1000)},1000);
     });
-};
+}

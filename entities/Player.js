@@ -33,4 +33,8 @@ Player.prototype.die = function(){
     }
 };
 
+Player.prototype.revive = function(){
+    this.changeStatus('alive');
+}
+
 module.exports = Player;
