@@ -27,11 +27,15 @@ function InitServer() {
 
     app.get('/client/battery', function(req, res) {
         var battery_id = req.query.battery_id;
-        var is_used = logic.useBattery(battery_id);
-        if (is_used) {
-            res.send('OK');
-        } else {
-            res.send('FAIL');
+        try {
+            var is_used = logic.useBattery(battery_id);
+            if (is_used) {
+                res.send('OK');
+            } else {
+                res.send('FAIL');
+            }
+        } catch (err) {
+            res.send("Error");
         }
     });
 

@@ -88,6 +88,10 @@ Game.prototype.start = function(){
 
 Game.prototype.adminToggleDead = function(player_id){
     var player = this.getPlayer(player_id);
+    if (!player){
+        throw Error("cannot find the player with id "+player_id);
+        return;
+    }
     if (player.getStatus() == 'alive')
         player.die();
     else if (player.getStatus() == 'dead')
@@ -98,9 +102,13 @@ Game.prototype.useBattery = function(battery_id){
     //if game has not started throw an error
     if (this.status != 'playing'){
         throw Error("Game has not started");
+        return;
     }
     var battery = this.getBattery(battery_id);
-    return battery.use();
+    if(battery)
+        return battery.use();
+    else
+        throw Error("No such Battery with id "+battery_id);
 };
 
 Game.prototype.revive = function(revive_player_id){
