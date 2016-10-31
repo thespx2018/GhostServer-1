@@ -9,7 +9,7 @@
 6 silly lifecycle GhostServer@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle GhostServer@1.0.0~start: GhostServer@1.0.0
 8 verbose lifecycle GhostServer@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle GhostServer@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/hanchengzheng/Projects/ghostserver/node_modules/.bin:/usr/local/Cellar/node/6.9.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/local/bin:/opt/local/sbin
+9 verbose lifecycle GhostServer@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/hanchengzheng/Projects/ghostserver/node_modules/.bin:/usr/local/Cellar/node/6.9.1/bin:/Users/hanchengzheng/.sdkman/candidates/gradle/current/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/local/bin:/opt/local/sbin
 10 verbose lifecycle GhostServer@1.0.0~start: CWD: /Users/hanchengzheng/Projects/ghostserver
 11 silly lifecycle GhostServer@1.0.0~start: Args: [ '-c', 'node server.js' ]
 12 silly lifecycle GhostServer@1.0.0~start: Returned: code: 1  signal: null

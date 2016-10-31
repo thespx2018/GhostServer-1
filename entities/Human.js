@@ -2,13 +2,21 @@ var util = require('util');
 var Player = require('./Player');
 
 const FULL_BATTERY = 20;
-const REVIVE_COUNT = 10;
+const REVIVE_COUNT = 5;
 
 function Human(id) {
     this.init(id, 'human');
     this.revive_progress = 0;
     this.revive_timer = null;
-    // this.battery = FULL_BATTERY;
+    this.battery_time = 0;
+}
+
+Human.prototype.getBatteryTime = function(){
+    return this.battery_time;
+}
+
+Human.prototype.setBatteryTime = function(new_battery_time){
+    this.battery_time = new_battery_time;
 }
 
 //revive player for 1 second
@@ -43,6 +51,11 @@ Human.prototype.reset = function() {
 Human.prototype.revive = function() {
     this.changeStatus('alive');
     this.revive_progress = 0;
+}
+
+Human.prototype.getInfo = function(){
+    return {'id':this.id,'role':this.role,'status':this.status,'info':{
+        'battery_time':this.battery_time}}
 }
 
 // Human.prototype.restoreBattery = function(){

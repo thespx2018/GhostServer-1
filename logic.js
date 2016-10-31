@@ -30,7 +30,7 @@ logic.prototype.getPlayerStat = function(){
     var ret = [];
     for (var ind in players){
         var player = players[ind];
-        ret.push({'id':player.id,'role':player.role,'status':player.status});
+        ret.push(player.getInfo());
     }
     return ret;
 };
@@ -59,6 +59,17 @@ logic.prototype.start = function(){
 
 logic.prototype.togglePlayerDead = function(player_id){
     game.adminToggleDead(player_id);
+};
+
+logic.prototype.hitGhost = function(player_id){
+    var player = this.getPlayerObj(player_id);
+    if (player.role == 'ghost'){
+        player.deductHp();
+    }
+};
+
+logic.prototype.getSettings = function(){
+    return game.getSettings();
 };
 
 module.exports = new logic();

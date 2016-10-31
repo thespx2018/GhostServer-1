@@ -6,9 +6,10 @@ var _ = require('underscore');
 var ALL_STATUS = ['playing','standby'];
 
 //debug parameters
-var HUMAN_NUM = 4;
-var GHOST_NUM = 1;
-var BATTERY_NUM = 5;
+var HUMAN_NUM = 7;
+var GHOST_NUM = 3;
+var BATTERY_NUM = 20;
+var BATTERY_LIFE = 60; //40 seconds for battery life
 
 function Game(human_num,ghost_num,battery_num){
     this.status = 'standby';
@@ -34,6 +35,10 @@ Game.prototype.init = function(human_num,ghost_num,battery_num){
     for(var i=1;i<=battery_num;i++){
         this.batteries.push(new Battery(i));
     }
+};
+
+Game.prototype.getSettings = function(){
+    return {'battery_life':BATTERY_LIFE};
 };
 
 Game.prototype.getPlayer = function(id){

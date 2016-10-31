@@ -10,15 +10,30 @@ var port = 3000;
 function InitServer() {
     app.set('views', path.join(__dirname, 'views'));
     app.use(express.static(path.join(__dirname, 'public')));
-    // app.use(logger('dev'));
+    app.use(logger('dev'));
 
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname, 'public/interface.html'));
     });
 
+    app.get('/client/setup', function(req, res) {
+        var settings = logic.getSettings();
+        if (settings) {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(settings);
+            console.log(settings);
+        } else {
+            res.send("No settings");
+        }
+
+    });
+
     app.get('/client/status', function(req, res) {
         var player_id = req.query.player_id;
+        var battery_left = req.query.battery_left;
         var player = logic.getPlayerObj(player_id);
+        if (battery_left)
+            player.setBatteryTime(battery_left);
         if (player)
             res.send(player.getStatus());
         else
@@ -77,6 +92,12 @@ function InitServer() {
     app.get('/admin/toggleDead', function(req, res) {
         var player_id = req.query.player_id;
         logic.togglePlayerDead(player_id);
+        res.send("OK");
+    });
+
+    app.get('/admin/hitGhost',function(req,res){
+        var player_id = req.query.player_id;
+        logic.hitGhost(player_id);
         res.send("OK");
     });
 
